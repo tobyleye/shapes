@@ -120,26 +120,25 @@ export default function Home() {
     const selectedSingleColor = colors.length === 1;
     const selectedSingleShape = shapes.length === 1;
 
-    const selectedMultipleShapes = shapes.length > 2;
-    const selectedMultipleColors = colors.length > 2;
+    const selectedMultipleShapes = shapes.length > 1;
+    const selectedMultipleColors = colors.length > 1;
 
     if (selectedAllShapes && selectedAllColors) {
       return "All Items:";
     } else if (
-      (selectedAllShapes && selectedMultipleColors) ||
-      (selectedAllColors && selectedMultipleShapes)
+      selectedMultipleShapes && selectedMultipleColors
     ) {
-      return `Multiple Items:`;
+      return "Multiple Items:";
     } else if (selectedAllShapes && selectedSingleColor) {
-      return "All " + colors[0] + " Items:";
+      return `All ${colors[0]} Items:`;
     } else if (selectedAllColors && selectedSingleShape) {
-      return "All " + shapes[0] + " Items:";
+      return `All ${shapes[0]} Items:`;
     } else if (selectedSingleColor && selectedMultipleShapes) {
-      return "Multiple " + colors[0] + " Items:";
+      return `Multiple ${colors[0]} Items:`;
     } else if (selectedMultipleColors && selectedSingleShape) {
-      return "Multiple " + shapes[0] + " Items:";
+      return `Multiple ${shapes[0]} Items:`;
     } else if (selectedSingleColor && selectedSingleShape) {
-      return shapes[0] + " " + shapes[0] + "Items:";
+      return `${shapes[0]} ${colors[0]} Items:`;
     }
   }, [shapes, colors]);
 
