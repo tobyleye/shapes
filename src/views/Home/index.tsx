@@ -22,13 +22,22 @@ const ShapeCheckbox = ({
   onChange: (evt: ChangeEvent<HTMLInputElement>) => void;
 }) => {
   return (
-    <label>
+    <label style={{
+      border: '1px solid',
+      borderColor: checked ? 'rgba(0,0,255,.4)' : '#ccc',
+      background: checked ?  'rgba(0,0,255, .05)': undefined,
+      display: "inline-block",
+      marginRight: 4,
+      padding: '5px 10px',
+      borderRadius: 99,
+    }}>
       {name}
       <input
         type="checkbox"
         name={name}
         checked={checked}
         onChange={onChange}
+        style={{ display: 'none'}}
       />
     </label>
   );
@@ -47,12 +56,12 @@ const ColorCheckbox = ({
     <label
       htmlFor={name}
       style={{
-        width: 40,
-        height: 40,
+        width: 34,
+        height: 34,
         borderRadius: "100%",
         background: name,
         display: "inline-block",
-        marginRight: 4,
+        marginRight: 5,
         border: checked ? "2px solid black" : undefined
       }}
     >
@@ -147,7 +156,7 @@ export default function Home() {
       <Header />
       <Container>
         <div>
-          <div>
+          <div style={{ marginBottom: 20}}>
             <p>Shapes</p>
             {allShapes.map((shape, index) => {
               return (
@@ -160,7 +169,7 @@ export default function Home() {
             })}
           </div>
 
-          <div>
+          <div style={{ marginBottom: 20}}>
             <p>colors</p>
             {allColors.map((color, index) => {
               return (
@@ -173,9 +182,12 @@ export default function Home() {
             })}
           </div>
         </div>
-        <div>
+
+        {/*  grid title */}
+        <div style={{ marginBottom: 5}}>
           {gridTitle} ({filteredItems.length})
         </div>
+
         <ItemGrid>
           {filteredItems.map(({ shape, color, ...rest }, index) => {
             return <Item key={index} shape={shape} color={color} {...rest} />;
