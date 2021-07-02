@@ -105,7 +105,11 @@ export default function Login() {
               type="password"
               value={password}
               placeholder="password"
-              onChange={(e) => setPassword(e.target.value)}
+              onChange={(e) => {
+                // reset error;
+                if (error) setError(false)
+                setPassword(e.target.value)}
+              }
               required
             />
             {error && (
