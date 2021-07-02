@@ -101,7 +101,6 @@ export default function Home() {
 
   const toggleColor = (evt: ChangeEvent<HTMLInputElement>) => {
     let { checked, name } = evt.target;
-    console.log({ checked, name });
 
     let colors = checked
       ? [...filters.colors, name]
@@ -161,6 +160,7 @@ export default function Home() {
             {allShapes.map((shape, index) => {
               return (
                 <ShapeCheckbox
+                  key={index}
                   name={shape}
                   checked={filters.shapes.indexOf(shape) > -1}
                   onChange={toggleShape}
@@ -174,6 +174,7 @@ export default function Home() {
             {allColors.map((color, index) => {
               return (
                 <ColorCheckbox
+                  key={index}
                   name={color}
                   checked={filters.colors.indexOf(color) > -1}
                   onChange={toggleColor}
