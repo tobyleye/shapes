@@ -1,6 +1,6 @@
-export const fakePass = "password";
+export const fakePass: string = "password";
 
-export function login(password) {
+export function login(password: string) {
   return new Promise((resolve, reject) => {
     // simulate a network request
     setTimeout(() => {
