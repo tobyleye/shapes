@@ -10,7 +10,6 @@ const Button = styled.button`
   color: #fff;
   height: 40px;
   font-size: inherit;
-  cursor: pointer;
   border-radius: 4px;
   padding: 0 20px;
   display: block;
@@ -19,9 +18,13 @@ const Button = styled.button`
   &:disabled {
     background: rgba(0, 0, 255, .5);
   }
+
+  &:not(:disabled) {
+    cursor: pointer;
+  }
 `;
 
-const Input  = styled.input<{ error: boolean}>`
+const Input  = styled.input<{ error?: boolean}>`
   border: none;
   font: inherit;
   height: 44px;
@@ -36,7 +39,6 @@ const Input  = styled.input<{ error: boolean}>`
     background: rgba(255, 0, 0, .1);
   `}
 
-  
   &:focus {
     background: none;
     border: 1px solid #ddd;
@@ -75,6 +77,37 @@ const Field = styled.div`
   margin-bottom: 20px;
 `;
 
+const PasswordWrapper = styled.div`
+  position: relative;
+
+  ${Input} {
+    padding-right: 34px;
+  }
+
+  .visibility-toggle {
+    border: none;
+    background: transparent;
+    outline: none;
+    position: absolute;
+    right: 3px;
+    top: 50%;
+    font-size: 20px;
+    transform: translateY(-50%);
+    cursor: pointer;
+  }
+
+`
+function PasswordInput({type, ...props}) {
+  const [show, setShow] = useState(false)
+  return (
+    <PasswordWrapper>
+      <Input {...props} type={show ? 'text' : 'password'}  />
+      <button type="button" className="visibility-toggle" onClick={() => setShow(show => !show)}>
+        { show ? '🐵' : '🙈'}
+      </button>
+    </PasswordWrapper>
+  )
+}
 export default function Login() {
   const [password, setPassword] = useState(fakePass);
   const [error, setError] = useState(false);
@@ -103,7 +136,7 @@ export default function Login() {
         <Title>Login</Title>
         <form onSubmit={submit}>
           <Field>
-            <Input
+            <PasswordInput
               error={error}
               type="password"
               value={password}
