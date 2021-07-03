@@ -77,6 +77,13 @@ const ColorCheckbox = ({
   );
 };
 
+const toggleItem = (list: string[], item: string) =>{
+  if (list.includes(item)) {
+    return list.filter(i => i !== item);
+  } 
+  return list.concat(item)
+}
+
 export default function Home() {
   const [filters, setFilters] = useState({
     shapes: allShapes, // select all shapes
@@ -86,29 +93,23 @@ export default function Home() {
   const { shapes, colors } = filters;
 
   const toggleShape = (evt: ChangeEvent<HTMLInputElement>) => {
-    let { checked, name } = evt.target;
-    let shapes = checked
-      ? [...filters.shapes, name]
-      : filters.shapes.filter((shape) => shape !== name);
+    let shape= evt.target.name;
 
     setFilters((filters) => {
       return {
         ...filters,
-        shapes
+        shapes: toggleItem(filters.shapes, shape )
       };
     });
   };
 
   const toggleColor = (evt: ChangeEvent<HTMLInputElement>) => {
-    let { checked, name } = evt.target;
+    let color  = evt.target.name;
 
-    let colors = checked
-      ? [...filters.colors, name]
-      : filters.colors.filter((color) => color !== name);
     setFilters((filters) => {
       return {
         ...filters,
-        colors
+        colors: toggleItem(filters.colors, color)
       };
     });
   };
@@ -146,8 +147,8 @@ export default function Home() {
     } else if (selectedMultipleColors && selectedSingleShape) {
       return `Multiple ${shapes[0]} Items:`;
     } else if (selectedSingleColor && selectedSingleShape) {
-      return `${shapes[0]} ${colors[0]} Items:`;
-    }
+      return `${colors[0]} ${shapes[0]} Items:`;
+    } else return `No item`
   }, [shapes, colors]);
 
   return (
