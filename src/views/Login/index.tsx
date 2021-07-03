@@ -81,7 +81,10 @@ export default function Login() {
   const { loginSuccess } = useAuth();
   const [loading, setLoading] = useState(false);
 
+  const resetError = () => error && setError(false)
+
   const submit = async (e) => {
+   resetError()
     e.preventDefault();
     try {
       setLoading(true);
@@ -107,7 +110,7 @@ export default function Login() {
               placeholder="password"
               onChange={(e) => {
                 // reset error;
-                if (error) setError(false)
+               resetError()
                 setPassword(e.target.value)}
               }
               required
