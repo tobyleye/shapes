@@ -142,8 +142,6 @@ export default function Login() {
               value={password}
               placeholder="password"
               onChange={(e) => {
-                // reset error;
-               resetError()
                 setPassword(e.target.value)}
               }
               required
