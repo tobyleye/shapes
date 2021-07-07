@@ -28,12 +28,12 @@ interface IFilter {
 }
 
 interface IFilterOption {
-item: string;
-selected: boolean;
-onClick: () => void;
+  item: string;
+  selected: boolean;
+  onClick: () => void;
 }
 
-export function Filter({ label, items, value, onChange, ItemComponent }: IFilter ) {
+export function Filter({ label, items, value, onChange, ItemComponent }: IFilter) {
   let toggleItem = (item: string) => {
     if (value.includes(item)) {
       onChange(value.filter((i) => i !== item));
@@ -46,16 +46,16 @@ export function Filter({ label, items, value, onChange, ItemComponent }: IFilter
     <FilterContainer>
       <p className="filter-label">{label}</p>
       <div className="filter-options">
-      {items.map((item, index) => {
-        return (
-          <ItemComponent
-            key={index}
-            item={item}
-            onClick={toggleItem.bind(null, item)}
-            selected={value.includes(item)}
-          />
-        );
-      })}
+        {items.map((item, index) => {
+          return (
+            <ItemComponent
+              key={index}
+              item={item}
+              onClick={toggleItem.bind(null, item)}
+              selected={value.includes(item)}
+            />
+          );
+        })}
       </div>
     </FilterContainer>
   );
