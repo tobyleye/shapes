@@ -52,7 +52,7 @@ const Input  = styled.input<{ error?: boolean}>`
 `;
 
 const FormContainer = styled.div`
-  width: 300px;
+  width: 100%;
   margin: auto;
   background: #fff;
   border: 1px solid #ccc;
@@ -71,6 +71,9 @@ const LoginWrapper = styled.div`
   left: 50%;
   top: 50%;
   transform: translate(-50%, -80%);
+  max-width: 380px;
+  width: 100%;
+  padding: 10px;
 `;
 
 const Field = styled.div`
