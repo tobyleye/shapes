@@ -19,7 +19,21 @@ const FilterContainer = styled.div`
   }
 `
 
-export function Filter({ label, items, value, onChange, ItemComponent }) {
+interface IFilter {
+  label: string;
+  items: string[],
+  value: string[],
+  onChange: (value: string[]) => void;
+  ItemComponent: (options: IFilterOption) => JSX.Element
+}
+
+interface IFilterOption {
+item: string;
+selected: boolean;
+onClick: () => void;
+}
+
+export function Filter({ label, items, value, onChange, ItemComponent }: IFilter ) {
   let toggleItem = (item: string) => {
     if (value.includes(item)) {
       onChange(value.filter((i) => i !== item));
@@ -64,7 +78,8 @@ const StyledShape = styled.button<{ selected: boolean }>`
     `}
 `;
 
-export const ShapeOption = ({ item, selected, onClick }) => (
+
+export const ShapeOption = ({ item, selected, onClick }: IFilterOption) => (
   <StyledShape onClick={onClick} selected={selected}>
     {item}
   </StyledShape>
