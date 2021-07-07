@@ -1,4 +1,4 @@
-import items from "../../items";
+import items from "../../generate_items";
 import { useMemo, useState } from "react";
 import styled  from "styled-components";
 import { shapes as allShapes, colors as allColors } from "../../constants";
@@ -11,6 +11,7 @@ const ItemGrid = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   grid-gap: 20px;
+  margin-bottom: 40px;
 `;
 
 const GridTitle = styled.div`
