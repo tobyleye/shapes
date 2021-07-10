@@ -41,8 +41,7 @@ export function Filter({ label, items, value, onChange, ItemComponent }: IFilter
         // select all the items
         onChange(items)
       } else {
-      onChange(value.filter((i) => i !== item));
-
+        onChange(value.filter((i) => i !== item));
       }
     } else {
       onChange(value.concat(item));
@@ -104,7 +103,7 @@ export const ColorOption = styled.button<{ selected: boolean; item: string }>`
   ${(props) =>
     props.selected &&
     css`
-      border: 2px solid black;
-      box-sh
+      border: 2px solid rgba(0,0,0,.8);
+      box-shadow: 5px 5px 10px 3px rgb(0 0 0 / 20%);
     `}
 `;
