@@ -1,7 +1,7 @@
 import { useState } from "react";
 import styled, { css } from "styled-components";
 import { useAuth } from "../../contexts/Auth";
-import { fakePass, login as $login } from "./service";
+import { login as $login } from "./service";
 
 const Button = styled.button`
   border: none;
@@ -100,7 +100,7 @@ const PasswordWrapper = styled.div`
   }
 
 `
-function PasswordInput({type, ...props}) {
+export function PasswordInput(props) {
   const [show, setShow] = useState(false)
   return (
     <PasswordWrapper>
@@ -111,8 +111,8 @@ function PasswordInput({type, ...props}) {
     </PasswordWrapper>
   )
 }
-export default function Login() {
-  const [password, setPassword] = useState(fakePass);
+export default function Login({pass=''}) {
+  const [password, setPassword] = useState(pass);
   const [error, setError] = useState(false);
   const { loginSuccess } = useAuth();
   const [loading, setLoading] = useState(false);
@@ -148,6 +148,7 @@ export default function Login() {
                 setPassword(e.target.value)}
               }
               required
+              aria-label="password"
             />
             {error && (
               <p style={{ color: "red", marginTop: 4 }}>Incorrect password.</p>
