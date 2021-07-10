@@ -36,7 +36,14 @@ interface IFilterOption {
 export function Filter({ label, items, value, onChange, ItemComponent }: IFilter) {
   let toggleItem = (item: string) => {
     if (value.includes(item)) {
+      // if it's the last item
+      if (value.length === 1) {
+        // select all the items
+        onChange(items)
+      } else {
       onChange(value.filter((i) => i !== item));
+
+      }
     } else {
       onChange(value.concat(item));
     }
