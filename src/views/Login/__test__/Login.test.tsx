@@ -1,7 +1,7 @@
 import { screen, render } from "@testing-library/react"
 import userEvent from "@testing-library/user-event"
-import Login, { PasswordInput } from "."
-import { AuthProvider } from "../../contexts/Auth"
+import Login, { PasswordInput } from "../"
+import { AuthProvider } from "../../../contexts/Auth"
 
 
 describe('Login form field Interactions', () => {   

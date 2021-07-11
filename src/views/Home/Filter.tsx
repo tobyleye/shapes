@@ -19,7 +19,7 @@ const FilterContainer = styled.div`
   }
 `
 
-interface IFilter {
+export interface IFilter {
   label: string;
   items: string[],
   value: string[],
@@ -27,7 +27,7 @@ interface IFilter {
   ItemComponent: (options: IFilterOption) => JSX.Element
 }
 
-interface IFilterOption {
+export interface IFilterOption {
   item: string;
   selected: boolean;
   onClick: () => void;
