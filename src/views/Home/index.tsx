@@ -84,7 +84,7 @@ export default function Home() {
             items={allShapes}
             onChange={setSelectedShapes}
             value={selectedShapes}
-            ItemComponent={ShapeOption}
+            OptionComponent={ShapeOption}
           />
 
           <Filter
@@ -92,7 +92,7 @@ export default function Home() {
             items={allColors}
             onChange={setSelectedColors}
             value={selectedColors}
-            ItemComponent={ColorOption}
+            OptionComponent={ColorOption}
           />
         </div>
 

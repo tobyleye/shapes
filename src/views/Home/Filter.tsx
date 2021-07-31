@@ -24,7 +24,7 @@ export interface IFilter {
   items: string[],
   value: string[],
   onChange: (value: string[]) => void;
-  ItemComponent: (options: IFilterOption) => JSX.Element
+  OptionComponent: (options: IFilterOption) => JSX.Element
 }
 
 export interface IFilterOption {
@@ -33,7 +33,7 @@ export interface IFilterOption {
   onClick: () => void;
 }
 
-export function Filter({ label, items, value, onChange, ItemComponent }: IFilter) {
+export function Filter({ label, items, value, onChange, OptionComponent }: IFilter) {
   let toggleItem = (item: string) => {
     if (value.includes(item)) {
       // if it's the last item
@@ -54,7 +54,7 @@ export function Filter({ label, items, value, onChange, ItemComponent }: IFilter
       <div className="filter-options">
         {items.map((item, index) => {
           return (
-            <ItemComponent
+            <OptionComponent
               key={index}
               item={item}
               onClick={toggleItem.bind(null, item)}
