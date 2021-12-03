@@ -21,30 +21,31 @@ const FilterContainer = styled.div`
 
 export interface IFilter {
   label: string;
-  items: string[],
+  options: string[],
   value: string[],
   onChange: (value: string[]) => void;
   OptionComponent: (options: IFilterOption) => JSX.Element
 }
 
 export interface IFilterOption {
-  item: string;
+  option: string;
   selected: boolean;
   onClick: () => void;
 }
 
-export function Filter({ label, items, value, onChange, OptionComponent }: IFilter) {
-  let toggleItem = (item: string) => {
-    if (value.includes(item)) {
-      // if it's the last item
+export function Filter({ label, options, value, onChange, OptionComponent }: IFilter) {
+  let toggleOption = (option: string, selected: boolean) => {
+    if (selected) {
+      // remove
       if (value.length === 1) {
-        // select all the items
-        onChange(items)
+        // if it's the last option selected, select all the options
+        onChange(options)
       } else {
-        onChange(value.filter((i) => i !== item));
+        onChange(value.filter(i => i !== option))
       }
-    } else {
-      onChange(value.concat(item));
+    }  else {
+      // add 
+      onChange(value.concat(option))
     }
   };
 
@@ -52,13 +53,14 @@ export function Filter({ label, items, value, onChange, OptionComponent }: IFilt
     <FilterContainer>
       <p className="filter-label">{label}</p>
       <div className="filter-options">
-        {items.map((item, index) => {
+        {options.map((option, index) => {
+          let selected = value.includes(option)
           return (
             <OptionComponent
               key={index}
-              item={item}
-              onClick={toggleItem.bind(null, item)}
-              selected={value.includes(item)}
+              option={option}
+              onClick={() => toggleOption(option, selected)}
+              selected={selected}
             />
           );
         })}
@@ -85,19 +87,19 @@ const StyledShape = styled.button<{ selected: boolean }>`
 `;
 
 
-export const ShapeOption = ({ item, selected, onClick }: IFilterOption) => (
+export const ShapeOption = ({ option, selected, onClick }: IFilterOption) => (
   <StyledShape onClick={onClick} selected={selected}>
-    {item}
+    {option}
   </StyledShape>
 );
 
-export const ColorOption = styled.button<{ selected: boolean; item: string }>`
+export const ColorOption = styled.button<{ selected: boolean; option: string }>`
   width: 34px;
   height: 34px;
   border-radius: 100%;
   background: color;
   display: inline-block;
-  background: ${(props) => props.item};
+  background: ${(props) => props.option};
   border: 2px solid transparent;
 
   ${(props) =>

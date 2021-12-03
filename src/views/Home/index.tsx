@@ -81,7 +81,7 @@ export default function Home() {
           <FiltersHeading>Filters</FiltersHeading>
           <Filter
             label="Shapes"
-            items={allShapes}
+            options={allShapes}
             onChange={setSelectedShapes}
             value={selectedShapes}
             OptionComponent={ShapeOption}
@@ -89,7 +89,7 @@ export default function Home() {
 
           <Filter
             label="Colors"
-            items={allColors}
+            options={allColors}
             onChange={setSelectedColors}
             value={selectedColors}
             OptionComponent={ColorOption}
