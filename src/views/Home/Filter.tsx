@@ -1,3 +1,4 @@
+import { Fragment } from 'react';
 import styled, { css } from 'styled-components'
 
 const FilterContainer = styled.div`
@@ -24,7 +25,7 @@ export interface IFilter {
   options: string[],
   value: string[],
   onChange: (value: string[]) => void;
-  OptionComponent: (options: IFilterOption) => JSX.Element
+  renderOption: (options: IFilterOption) => JSX.Element
 }
 
 export interface IFilterOption {
@@ -33,7 +34,7 @@ export interface IFilterOption {
   onClick: () => void;
 }
 
-export function Filter({ label, options, value, onChange, OptionComponent }: IFilter) {
+export function Filter({ label, options, value, onChange, renderOption }: IFilter) {
   let toggleOption = (option: string, selected: boolean) => {
     if (selected) {
       // remove
@@ -55,14 +56,14 @@ export function Filter({ label, options, value, onChange, OptionComponent }: IFi
       <div className="filter-options">
         {options.map((option, index) => {
           let selected = value.includes(option)
-          return (
-            <OptionComponent
-              key={index}
-              option={option}
-              onClick={() => toggleOption(option, selected)}
-              selected={selected}
-            />
-          );
+          return (<Fragment key={index}>
+            {renderOption({ 
+            option, 
+            onClick: () => toggleOption(option, selected),
+            selected
+          })}
+          </Fragment>
+          )
         })}
       </div>
     </FilterContainer>
@@ -70,7 +71,7 @@ export function Filter({ label, options, value, onChange, OptionComponent }: IFi
 }
 
 
-const StyledShape = styled.button<{ selected: boolean }>`
+const StyledShapeOption = styled.button<{ selected: boolean }>`
   border: 1px solid;
   border-color: #ccc;
   display: inline-block;
@@ -86,26 +87,27 @@ const StyledShape = styled.button<{ selected: boolean }>`
     `}
 `;
 
-
 export const ShapeOption = ({ option, selected, onClick }: IFilterOption) => (
-  <StyledShape onClick={onClick} selected={selected}>
+  <StyledShapeOption onClick={onClick} selected={selected}>
     {option}
-  </StyledShape>
+  </StyledShapeOption>
 );
 
-export const ColorOption = styled.button<{ selected: boolean; option: string }>`
-  width: 34px;
-  height: 34px;
-  border-radius: 100%;
-  background: color;
-  display: inline-block;
-  background: ${(props) => props.option};
-  border: 2px solid transparent;
+const StyledColorOption = styled.button<{ selected: boolean; option: string }>`
+width: 34px;
+height: 34px;
+border-radius: 100%;
+background: color;
+display: inline-block;
+background: ${(props) => props.option};
+border: 2px solid transparent;
 
-  ${(props) =>
-    props.selected &&
-    css`
-      border: 2px solid rgba(0,0,0,.8);
-      box-shadow: 5px 5px 10px 3px rgb(0 0 0 / 20%);
-    `}
-`;
+${(props) =>
+  props.selected &&
+  css`
+  border: 2px solid rgba(0,0,0,.8);
+  box-shadow: 5px 5px 10px 3px rgb(0 0 0 / 20%);
+  `}
+  `;
+  
+export const ColorOption = (props: IFilterOption) => <StyledColorOption {...props}/>

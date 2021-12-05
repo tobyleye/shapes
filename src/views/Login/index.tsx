@@ -1,5 +1,5 @@
 import { useState } from "react";
-import styled, { css } from "styled-components";
+import styled, { css, keyframes } from "styled-components";
 import { useAuth } from "../../contexts/Auth";
 import { login as $login } from "./service";
 
@@ -51,22 +51,34 @@ const Input  = styled.input<{ error?: boolean}>`
   }
 `;
 
+
+const Title = styled.h3`
+text-align: center;
+margin-bottom: 25px;
+font-size: 28px;
+`;
+
+const slidein = keyframes`
+from{
+  transform: translateX(40px);
+  opacity:0;
+}
+to {
+  transform: translateX(0);
+  opacity:1;
+}
+
+` 
 const FormContainer = styled.div`
   width: 100%;
-  margin: auto;
   background: #fff;
   border: 1px solid #ccc;
   padding: 40px 30px;
   border-radius: 4px;
+  animation: ${slidein} .4s ease .1s both;
 `;
 
-const Title = styled.h3`
-  text-align: center;
-  margin-bottom: 25px;
-  font-size: 28px;
-`;
-
-const LoginWrapper = styled.div`
+const LoginContainer = styled.div`
   position: absolute;
   left: 50%;
   top: 50%;
@@ -76,13 +88,14 @@ const LoginWrapper = styled.div`
   padding: 10px;
 `;
 
+
+
 const Field = styled.div`
   margin-bottom: 20px;
 `;
 
 const PasswordWrapper = styled.div`
   position: relative;
-
   ${Input} {
     padding-right: 34px;
   }
@@ -111,6 +124,7 @@ export function PasswordInput(props) {
     </PasswordWrapper>
   )
 }
+
 export default function Login({pass=''}) {
   const [password, setPassword] = useState(pass);
   const [error, setError] = useState(false);
@@ -134,7 +148,7 @@ export default function Login({pass=''}) {
   };
 
   return (
-    <LoginWrapper>
+    <LoginContainer>
       <FormContainer>
         <Title>Login</Title>
         <form onSubmit={submit}>
@@ -157,6 +171,6 @@ export default function Login({pass=''}) {
           <Button disabled={loading}>{loading ? 'Loading...' : 'Login' }</Button>
         </form>
       </FormContainer>
-    </LoginWrapper>
+    </LoginContainer>
   );
 }
