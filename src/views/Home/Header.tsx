@@ -14,12 +14,13 @@ export const Styled = styled.header`
     height: 50px;
   }
 `;
-export const Logo = styled.div`
+
+const Logo = styled.div`
   text-transform: uppercase;
   font-size: 20px;
 `;
 
-export const LogoutButton = styled.button`
+const LogoutButton = styled.button`
   color: red;
   border: none;
   outline: none;
